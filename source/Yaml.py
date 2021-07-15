@@ -3,7 +3,7 @@ from pathlib import Path
 from Log import Logger
 from Utils import PraseError, get_yaml_files, get_save_path
 
-YAML_REGEX = re.compile('([a-zA-Z0-9_\.]+):([0-9])*\s\"(.*)\"|(#.*#*)')
+YAML_REGEX = re.compile('([a-zA-Z0-9_\.]+)\s*:\s*([0-9])*\s*\"(.*)\"|(#.*#*)')
 
 class YamlEntity:
     def __init__(self, key, string, order, tag):
