@@ -2,6 +2,8 @@
 
 set working_path=%~dp0..\
 
+git pull
+
 python --version 3>NUL
 
 if not errorlevel 0 GOTO :NOPYTHON
