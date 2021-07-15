@@ -34,8 +34,8 @@ def main(working_path):
     en_path = working_path / 'en'
     ko_path = working_path / 'ko'
 
-    if not (check_dir(en_path) and check_dir(ko_path)):
-        return
+    check_dir(en_path)
+    check_dir(ko_path)
 
     if not (check_files(en_path) and check_files(ko_path)):
         return

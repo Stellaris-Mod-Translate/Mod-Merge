@@ -9,10 +9,12 @@ def get_yaml_files(path):
     return [path / file for file in path.iterdir() if file.suffix == '.yml']
 
 def check_dir(path):
-    if not Path(path).is_dir():
-        Logger.log(f'{path} 폴더가 없습니다', Logger.Level.ERROR)
-        return False
-    return True
+    path = Path(path)
+    if path.is_dir():
+        return
+    Logger.log(f'{path} 폴더가 없습니다 생성합니다', Logger.Level.WARNING)
+    path.mkdir(exist_ok=True)
+
 
 def check_files(path):
     if len(get_yaml_files(path)) <= 0:
