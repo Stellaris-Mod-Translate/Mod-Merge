@@ -13,21 +13,24 @@ def merge(en_path, ko_path):
     for resource in en_resources:
         for key in resource:
             Logger.log(f'{key}')
+            en_entity = resource[key]
             ko_entity = ko_resources[key]
             if ko_entity:
-                en_entity = resource[key]
                 if ko_entity.is_comment():
                     Logger.log(f'\t{ko_entity}를 찾았지만, 주석입니다')
                     continue
                 if en_entity.string == ko_entity.string:
+                    en_entity.tag = 'D'
                     Logger.log(f'\ten과 ko가 동일합니다')
                     continue
                 if not ko_entity.has_korean():
+                    en_entity.tag = 'D'
                     Logger.log(f'\tko가 모두 영어입니다.')
                     continue
                 Logger.log(f'\t원본 : {en_entity.string}\n\t대체 : {ko_entity.string}')
                 en_entity.string = ko_entity.string
             else:
+                en_entity.tag = 'D'
                 Logger.log(f'\t{key}가 en에는 있지만, ko에는 없습니다.')
     
     en_resources.save()

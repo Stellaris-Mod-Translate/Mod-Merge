@@ -53,8 +53,12 @@ class YamlResource:
         return iter(self.entities.keys())
 
     def __repr__(self):
-        newline = '\n'
-        return f'{newline.join(repr(entity) for entity in self.entities.values())}'
+        string = ''
+        for entity in self.entities.values():
+            if entity.tag == 'D':
+                continue
+            string += f'{repr(entity)}\n'
+        return string
 
 class YamlFiles:
     def __init__(self, path):
@@ -67,6 +71,10 @@ class YamlFiles:
         for path in self.resources:
             Logger.log(f'{Path(path).name}를 저장하는 중')
             try:
+                content = repr(self.resources[path])
+                if(len(content) <= 0):
+                    Logger.log(f'{Path(path).name}을 저장할 수 없습니다 (내용물이 없어요)', Logger.Level.WARNING)
+                    continue
                 with get_save_path(path).open(mode='w', encoding='utf-8') as f:
                     f.write(u'\uFEFF')
                     f.write('l_english:\n\n')
