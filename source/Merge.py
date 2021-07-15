@@ -22,6 +22,9 @@ def merge(en_path, ko_path):
                 if en_entity.string == ko_entity.string:
                     Logger.log(f'\ten과 ko가 동일합니다')
                     continue
+                if not ko_entity.has_korean():
+                    Logger.log(f'\tko가 모두 영어입니다.')
+                    continue
                 Logger.log(f'\t원본 : {en_entity.string}\n\t대체 : {ko_entity.string}')
                 en_entity.string = ko_entity.string
             else:

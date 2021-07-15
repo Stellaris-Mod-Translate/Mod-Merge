@@ -4,6 +4,7 @@ from Log import Logger
 from Utils import PraseError, get_yaml_files, get_save_path
 
 YAML_REGEX = re.compile('([a-zA-Z0-9_\.]+)\s*:\s*([0-9])*\s*\"(.*)\"|(#.*#*)')
+KOREAN_REGEX = re.compile('[가-힣]+')
 
 class YamlEntity:
     def __init__(self, key, string, order, tag):
@@ -14,6 +15,9 @@ class YamlEntity:
 
     def is_comment(self):
         return self.tag == '#'
+    
+    def has_korean(self):
+        return KOREAN_REGEX.search(self.string)
     
     def __repr__(self):
         if self.tag == '#':
